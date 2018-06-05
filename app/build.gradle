@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 27
@@ -10,19 +11,48 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+
+
     buildTypes {
+        def baseUrl = "BASE_URL"
+        def apiKey = "API_KEY"
+        debug {
+
+            //Config API in DEBUG
+            buildConfigField "String", baseUrl, '"https://newsapi.org/v2/"'
+            buildConfigField "String", apiKey, '"4fd616a90cdb47609e4aafa1217ad2fe"'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            //Config API in RELEASE
+            buildConfigField "String", baseUrl, '"https://newsapi.org/v2/"'
+            buildConfigField "String", apiKey, '"4fd616a90cdb47609e4aafa1217ad2fe"'
         }
     }
+}
+ext {
+    androidSupportVersion = '27.1.1'
+    squareupRetrofit2Version = '2.3.0'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation "com.android.support:appcompat-v7:$androidSupportVersion"
+    implementation "com.android.support:design:$androidSupportVersion"
+    implementation "com.android.support:design:$androidSupportVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation "com.squareup.retrofit2:retrofit:$squareupRetrofit2Version"
+    implementation "com.squareup.retrofit2:converter-gson:$squareupRetrofit2Version"
+    implementation 'com.google.code.gson:gson:2.8.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    implementation 'org.greenrobot:greendao:3.2.2'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
 }
