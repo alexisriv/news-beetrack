@@ -1,4 +1,4 @@
-package com.beetrack.www.news.networking.util;
+package com.beetrack.www.news.networking.core;
 
 import java.io.IOException;
 import java.net.InetAddress;

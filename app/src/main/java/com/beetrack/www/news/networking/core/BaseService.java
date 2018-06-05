@@ -1,4 +1,4 @@
-package com.beetrack.www.news.networking.util;
+package com.beetrack.www.news.networking.core;
 
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -39,7 +39,6 @@ public class BaseService {
     public static final int CODE_HTTP_INTERNAL_SERVER_ERROR = 500;
 
 
-
     private static final String URL = BuildConfig.BASE_URL;
 
     private static final String PROTOCOL_SSL = "TLSv1.2";
@@ -75,7 +74,7 @@ public class BaseService {
         return retrofit.create(tClass);
     }
 
-    public <T> T auth(Class<T> tClass, String authToken) {
+    public <T> T getServiceAuth(Class<T> tClass, String authToken) {
         AuthenticationInterceptor interceptor = new AuthenticationInterceptor(authToken);
         httpClient = getHttpClientEnableTLS12();
         httpClient.addInterceptor(interceptor);
