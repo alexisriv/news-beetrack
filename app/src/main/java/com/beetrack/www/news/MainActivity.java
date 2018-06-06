@@ -1,8 +1,10 @@
 package com.beetrack.www.news;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 import com.beetrack.www.news.networking.News;
 import com.beetrack.www.news.networking.models.Page;
@@ -13,33 +15,28 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class MainActivity extends AppCompatActivity {
 
-    private News news = new News();
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
-    TextView helloTextView;
+    private News news = new News();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        helloTextView = findViewById(R.id.helloTextView);
-        helloTextView.setText("Loading...");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        this.init();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-        news.getNewsTop();
+    private void init() {
+        this.tabLayout = this.findViewById(R.id.tabLayout);
+        this.viewPager = this.findViewById(R.id.newsViewPager);
+        this.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        NewsAdapter newsAdapter = new NewsAdapter(getSupportFragmentManager());
+        this.viewPager.setAdapter(newsAdapter);
+        this.tabLayout.setupWithViewPager(viewPager);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onNewsInUI(Page page) {
-        helloTextView.setText(page.getStatus());
-    }
 }

@@ -36,6 +36,7 @@ android {
 ext {
     androidSupportVersion = '27.1.1'
     squareupRetrofit2Version = '2.3.0'
+    bumptechGlideVersion = '4.7.1'
 }
 
 dependencies {
@@ -49,6 +50,9 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.1'
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation "com.github.bumptech.glide:glide:$bumptechGlideVersion"
+    implementation 'com.android.support:support-v4:27.1.1'
+    annotationProcessor "com.github.bumptech.glide:compiler:$bumptechGlideVersion"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
