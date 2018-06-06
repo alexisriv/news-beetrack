@@ -44,6 +44,8 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$androidSupportVersion"
     implementation "com.android.support:design:$androidSupportVersion"
     implementation "com.android.support:design:$androidSupportVersion"
+    implementation "com.android.support:recyclerview-v7:$androidSupportVersion"
+    implementation "com.android.support:cardview-v7:$androidSupportVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation "com.squareup.retrofit2:retrofit:$squareupRetrofit2Version"
     implementation "com.squareup.retrofit2:converter-gson:$squareupRetrofit2Version"
