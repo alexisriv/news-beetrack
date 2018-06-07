@@ -2,28 +2,38 @@ package com.beetrack.www.news.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.beetrack.www.news.R;
+import com.beetrack.www.news.adapters.NewsRecyclerAdapter;
+import com.beetrack.www.news.networking.News;
+import com.beetrack.www.news.networking.models.Article;
 import com.beetrack.www.news.networking.models.Page;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+
 public class ListNewsFragment extends Fragment {
+
+    private News news = new News();
 
     private static final String TYPE_NEWS = "type.news";
     private static final int TYPE_NEWS_TOP = 0;
     private static final int TYPE_NEWS_LIKE = 1;
 
-    private TextView typeFragmentTextView;
-
     private int typeNews;
 
+    private RecyclerView listNewsRecyclerView;
+    private NewsRecyclerAdapter adapter;
+    private LinearLayoutManager layoutManager;
 
     public ListNewsFragment() {
         // Required empty public constructor
@@ -48,8 +58,10 @@ public class ListNewsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (TYPE_NEWS_TOP == typeNews)
+        if (TYPE_NEWS_TOP == typeNews) {
             EventBus.getDefault().register(this);
+            this.news.getNewsTop();
+        }
     }
 
     @Override
@@ -61,7 +73,8 @@ public class ListNewsFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onNewsInUI(Page page) {
-
+        this.adapter.setArticles(page.getArticles());
+        this.adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -69,16 +82,20 @@ public class ListNewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_list_news, container, false);
-
-        this.typeFragmentTextView = view.findViewById(R.id.typeFragmentTextView);
-        switch (typeNews) {
-            case TYPE_NEWS_TOP:
-                this.typeFragmentTextView.setText("TOP");
-                break;
-            case TYPE_NEWS_LIKE:
-                this.typeFragmentTextView.setText("LIKE");
-                break;
-        }
+        this.init(view);
         return view;
     }
+
+    private void init(View view) {
+        this.listNewsRecyclerView = view.findViewById(R.id.listNewsRecyclerView);
+        this.listNewsRecyclerView.setHasFixedSize(true);
+
+        this.layoutManager = new LinearLayoutManager(view.getContext());
+        this.listNewsRecyclerView.setLayoutManager(this.layoutManager);
+
+        this.adapter = new NewsRecyclerAdapter(new ArrayList<Article>());
+        this.listNewsRecyclerView.setAdapter(this.adapter);
+    }
+
+
 }

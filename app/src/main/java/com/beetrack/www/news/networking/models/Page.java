@@ -5,12 +5,12 @@ import java.util.List;
 public class Page {
 
     private String status;
-    private long totalResults;
+    private int totalResults = 0;
     private List<Article> articles;
 
     public Page() {}
 
-    public Page(String status, long totalResults, List<Article> articles) {
+    public Page(String status, int totalResults, List<Article> articles) {
         this.status = status;
         this.totalResults = totalResults;
         this.articles = articles;
@@ -24,11 +24,11 @@ public class Page {
         this.status = status;
     }
 
-    public long getTotalResults() {
+    public int getTotalResults() {
         return totalResults;
     }
 
-    public void setTotalResults(long totalResults) {
+    public void setTotalResults(int totalResults) {
         this.totalResults = totalResults;
     }
 

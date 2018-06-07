@@ -6,12 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.beetrack.www.news.adapters.NewsPagerAdapter;
 import com.beetrack.www.news.networking.News;
-import com.beetrack.www.news.networking.models.Page;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         this.tabLayout = this.findViewById(R.id.tabLayout);
         this.viewPager = this.findViewById(R.id.newsViewPager);
         this.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        NewsAdapter newsAdapter = new NewsAdapter(getSupportFragmentManager());
-        this.viewPager.setAdapter(newsAdapter);
+        NewsPagerAdapter newsPagerAdapter = new NewsPagerAdapter(getSupportFragmentManager());
+        this.viewPager.setAdapter(newsPagerAdapter);
         this.tabLayout.setupWithViewPager(viewPager);
     }
 

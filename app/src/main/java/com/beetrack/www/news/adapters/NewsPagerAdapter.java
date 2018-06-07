@@ -1,4 +1,4 @@
-package com.beetrack.www.news;
+package com.beetrack.www.news.adapters;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,12 +10,12 @@ import com.beetrack.www.news.fragments.ListNewsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsAdapter extends FragmentPagerAdapter {
+public class NewsPagerAdapter extends FragmentPagerAdapter {
 
     private static final int COUNT_FRAGMENT = 2;
     private static String[] titlesTab = {"Top","Like"};
 
-    public NewsAdapter(FragmentManager fm) {
+    public NewsPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 

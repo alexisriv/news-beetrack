@@ -29,7 +29,7 @@ public class News extends BaseService {
 
             @Override
             public void onFailure(Call<Page> call, Throwable t) {
-                Log.e("Failure News", t.getMessage());
+                Log.e(getClass().getSimpleName(), t.getMessage());
                 t.printStackTrace();
             }
         });
