@@ -4,36 +4,41 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.beetrack.www.news.AppNews;
 import com.beetrack.www.news.R;
 import com.beetrack.www.news.adapters.NewsRecyclerAdapter;
+import com.beetrack.www.news.models.ArticleDB;
+import com.beetrack.www.news.models.ArticleDBDao;
+import com.beetrack.www.news.models.DaoSession;
 import com.beetrack.www.news.networking.News;
 import com.beetrack.www.news.networking.models.Article;
 import com.beetrack.www.news.networking.models.Page;
+import com.beetrack.www.news.networking.models.Source;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListNewsFragment extends Fragment {
-
-    private News news = new News();
 
     private static final String TYPE_NEWS = "type.news";
     private static final int TYPE_NEWS_TOP = 0;
     private static final int TYPE_NEWS_LIKE = 1;
 
-    private int typeNews;
-
     private RecyclerView listNewsRecyclerView;
     private NewsRecyclerAdapter adapter;
     private LinearLayoutManager layoutManager;
+
+    private News news = new News();
+    private int typeNews;
+    private DaoSession daoSession;
 
     public ListNewsFragment() {
         // Required empty public constructor
@@ -61,6 +66,8 @@ public class ListNewsFragment extends Fragment {
         if (TYPE_NEWS_TOP == typeNews) {
             EventBus.getDefault().register(this);
             this.news.getNewsTop();
+        } else {
+            getArticlesDB();
         }
     }
 
@@ -95,6 +102,18 @@ public class ListNewsFragment extends Fragment {
 
         this.adapter = new NewsRecyclerAdapter(new ArrayList<Article>());
         this.listNewsRecyclerView.setAdapter(this.adapter);
+    }
+
+    private void getArticlesDB() {
+        this.daoSession = ((AppNews) getActivity().getApplication()).getDaoSession();
+        ArticleDBDao articleDBDao = daoSession.getArticleDBDao();
+        List<ArticleDB> articleDBS = articleDBDao.queryBuilder().orderDesc(ArticleDBDao.Properties.Id).build().list();
+        List<Article> articles = new ArrayList<>();
+        for (ArticleDB articleDB: articleDBS){
+            articles.add(new Article(new Source(articleDB.getSource().getIdSource(), articleDB.getSource().getName()), articleDB.getAuthor(), articleDB.getTitle(), articleDB.getDescription(), articleDB.getUrl(), articleDB.getUrlToImage(), articleDB.getPublishedAt()));
+        }
+        adapter.setArticles(articles);
+        adapter.notifyDataSetChanged();
     }
 
 

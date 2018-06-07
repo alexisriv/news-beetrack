@@ -10,18 +10,22 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
+        buildConfigField "String", "NAME_DB", '"news-beetrack"'
 
+    }
 
 
     buildTypes {
         def baseUrl = "BASE_URL"
         def apiKey = "API_KEY"
+        def passwordDB = "PASSWORD_DB"
         debug {
 
             //Config API in DEBUG
             buildConfigField "String", baseUrl, '"https://newsapi.org/v2/"'
-            buildConfigField "String", apiKey, '"4fd616a90cdb47609e4aafa1217ad2fe"'
+            buildConfigField "String", apiKey, '"8328cb53b95d434c9d74295d62d99553"'
+            buildConfigField "String", passwordDB, '"123456"'
+
         }
         release {
             minifyEnabled false
@@ -29,7 +33,8 @@ android {
 
             //Config API in RELEASE
             buildConfigField "String", baseUrl, '"https://newsapi.org/v2/"'
-            buildConfigField "String", apiKey, '"4fd616a90cdb47609e4aafa1217ad2fe"'
+            buildConfigField "String", apiKey, '"8328cb53b95d434c9d74295d62d99553"'
+            buildConfigField "String", passwordDB, '"ajd4gsdA"'
         }
     }
 }
@@ -51,6 +56,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$squareupRetrofit2Version"
     implementation 'com.google.code.gson:gson:2.8.1'
     implementation 'org.greenrobot:greendao:3.2.2'
+    implementation 'net.zetetic:android-database-sqlcipher:3.5.6'
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation "com.github.bumptech.glide:glide:$bumptechGlideVersion"
     implementation 'com.android.support:support-v4:27.1.1'
