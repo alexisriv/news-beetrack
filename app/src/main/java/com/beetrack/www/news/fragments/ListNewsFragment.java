@@ -1,5 +1,6 @@
 package com.beetrack.www.news.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.beetrack.www.news.AppNews;
+import com.beetrack.www.news.NewsActivity;
 import com.beetrack.www.news.R;
 import com.beetrack.www.news.adapters.NewsRecyclerAdapter;
+import com.beetrack.www.news.holders.NewsViewHolder;
 import com.beetrack.www.news.models.ArticleDB;
 import com.beetrack.www.news.models.ArticleDBDao;
 import com.beetrack.www.news.models.DaoSession;
@@ -82,6 +85,13 @@ public class ListNewsFragment extends Fragment {
     public void onNewsInUI(Page page) {
         this.adapter.setArticles(page.getArticles());
         this.adapter.notifyDataSetChanged();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void clickItemRecycler(NewsViewHolder.OnClickNews onClickNews){
+        Intent intent = new Intent(getActivity().getApplicationContext(), NewsActivity.class);
+        intent.putExtra(NewsActivity.URL_NEWS, onClickNews.getArticle());
+        startActivity(intent);
     }
 
     @Override

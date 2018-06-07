@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">News</string>
     <string name="title_activity_new">newActivity</string>
+    <string name="msg_info_wait">Wait, please.</string>
+    <string name="msg_warning_no_data">No data to display.</string>
+    <string name="error_when_saving">Error when saving.</string>
+    <string name="error_when_removing">Error when removing.</string>
+    <string name="saved">Saved.</string>
+    <string name="removed">Removed.</string>
 
 </resources>

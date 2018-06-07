@@ -5,10 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.beetrack.www.news.GlideApp;
 import com.beetrack.www.news.R;
 import com.beetrack.www.news.networking.models.Article;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class NewsViewHolder extends RecyclerView.ViewHolder {
 
@@ -23,7 +26,7 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
         this.nameJournalTextView = itemView.findViewById(R.id.nameJournalTextView);
     }
 
-    public void build(Article article) {
+    public void build(final Article article) {
         this.titleNewsTextView.setText(article.getTitle());
         GlideApp.with(itemView)
                 .load(article.getUrlToImage())
@@ -32,5 +35,24 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
                 .error(R.drawable.img_not_found)
                 .into(this.photoImageView);
         this.nameJournalTextView.setText(article.getSource().getName());
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new OnClickNews(article));
+            }
+        });
+    }
+
+    public class OnClickNews {
+
+        private Article selectedArticle;
+
+        public OnClickNews(Article article) {
+            this.selectedArticle = article;
+        }
+
+        public Article getArticle(){
+            return this.selectedArticle;
+        }
     }
 }
