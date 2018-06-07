@@ -26,6 +26,7 @@ public class NewsActivity extends AppCompatActivity {
 
     private WebView webView;
     private ProgressDialog progressDialog;
+    private FloatingActionButton fab;
 
     private Article article;
     private DaoSession daoSession;
@@ -42,11 +43,12 @@ public class NewsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         Bundle bundle = getIntent().getExtras();
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         this.daoSession = ((AppNews) getApplication()).getDaoSession();
 
         if (bundle != null) {
             article = (Article) bundle.getSerializable(URL_NEWS);
+
             getSupportActionBar().setTitle(article.getSource().getName());
             progressDialog = new ProgressDialog(this);
             progressDialog.setIcon(R.drawable.img_news_beetrack);
@@ -58,6 +60,11 @@ public class NewsActivity extends AppCompatActivity {
             loadWebView(article.getUrl());
             articleDBDao = daoSession.getArticleDBDao();
             sourceDBDao = daoSession.getSourceDBDao();
+            if (existsArticle())
+                fab.setImageResource(R.drawable.img_thumb_down);
+            else
+                fab.setImageResource(R.drawable.img_thumb_up);
+
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -103,7 +110,7 @@ public class NewsActivity extends AppCompatActivity {
     }
 
     private void saveArticle(Article article) {
-        if(existsArticle()) {
+        if (existsArticle()) {
             this.clearArticle();
             return;
         }
@@ -130,6 +137,7 @@ public class NewsActivity extends AppCompatActivity {
             articleDBDao.save(articleDB);
             articleDBDao.getDatabase().setTransactionSuccessful();
             Toast.makeText(this, R.string.saved, Toast.LENGTH_SHORT).show();
+            fab.setImageResource(R.drawable.img_thumb_down);
         } catch (Exception e) {
             Toast.makeText(this, R.string.error_when_saving, Toast.LENGTH_SHORT).show();
             Log.e(getClass().getSimpleName(), e.getMessage());
@@ -139,9 +147,9 @@ public class NewsActivity extends AppCompatActivity {
         }
     }
 
-    private void clearArticle(){
+    private void clearArticle() {
         ArticleDB articleDB = articleDBDao.queryBuilder().where(ArticleDBDao.Properties.Url.eq(article.getUrl())).build().unique();
-        try{
+        try {
             articleDBDao.getDatabase().beginTransaction();
 
 
@@ -150,7 +158,8 @@ public class NewsActivity extends AppCompatActivity {
 
             articleDBDao.getDatabase().setTransactionSuccessful();
             Toast.makeText(this, R.string.removed, Toast.LENGTH_SHORT).show();
-        }catch (Exception e){
+            fab.setImageResource(R.drawable.img_thumb_up);
+        } catch (Exception e) {
             Toast.makeText(this, R.string.error_when_removing, Toast.LENGTH_SHORT).show();
             Log.e(getClass().getSimpleName(), e.getMessage());
             e.printStackTrace();
@@ -160,6 +169,6 @@ public class NewsActivity extends AppCompatActivity {
     }
 
     public boolean existsArticle() {
-        return articleDBDao.queryBuilder().where(ArticleDBDao.Properties.Url.eq(article.getUrl())).build().list().size()>0?true:false;
+        return articleDBDao.queryBuilder().where(ArticleDBDao.Properties.Url.eq(article.getUrl())).build().list().size() > 0 ? true : false;
     }
 }
