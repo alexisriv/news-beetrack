@@ -1,4 +1,4 @@
-package com.beetrack.www.news;
+package com.beetrack.www.news.core;
 
 import android.app.Application;
 

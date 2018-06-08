@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.beetrack.www.news.AppNews;
-import com.beetrack.www.news.NewsActivity;
+import com.beetrack.www.news.core.AppNews;
+import com.beetrack.www.news.mvp.views.NewsActivity;
 import com.beetrack.www.news.R;
 import com.beetrack.www.news.adapters.NewsRecyclerAdapter;
 import com.beetrack.www.news.holders.NewsViewHolder;
@@ -90,7 +90,7 @@ public class ListNewsFragment extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void clickItemRecycler(NewsViewHolder.OnClickNews onClickNews){
         Intent intent = new Intent(getActivity().getApplicationContext(), NewsActivity.class);
-        intent.putExtra(NewsActivity.URL_NEWS, onClickNews.getArticle());
+        intent.putExtra(NewsActivity.ARTICLE, onClickNews.getArticle());
         startActivity(intent);
     }
 
