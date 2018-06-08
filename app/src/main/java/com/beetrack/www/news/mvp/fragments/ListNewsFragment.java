@@ -1,4 +1,4 @@
-package com.beetrack.www.news.fragments;
+package com.beetrack.www.news.mvp.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
