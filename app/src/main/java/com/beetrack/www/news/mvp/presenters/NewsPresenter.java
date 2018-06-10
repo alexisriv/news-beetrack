@@ -7,11 +7,11 @@ import android.widget.Toast;
 import com.beetrack.www.news.R;
 import com.beetrack.www.news.core.AppNews;
 import com.beetrack.www.news.mvp.interfaces.MvpNews;
-import com.beetrack.www.news.models.ArticleDB;
-import com.beetrack.www.news.models.ArticleDBDao;
-import com.beetrack.www.news.models.DaoSession;
-import com.beetrack.www.news.models.SourceDB;
-import com.beetrack.www.news.models.SourceDBDao;
+import com.beetrack.www.news.mvp.models.ArticleDB;
+import com.beetrack.www.news.mvp.models.ArticleDBDao;
+import com.beetrack.www.news.mvp.models.DaoSession;
+import com.beetrack.www.news.mvp.models.SourceDB;
+import com.beetrack.www.news.mvp.models.SourceDBDao;
 import com.beetrack.www.news.networking.models.Article;
 
 public class NewsPresenter implements MvpNews.Presenter {

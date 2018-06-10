@@ -1,4 +1,4 @@
-package com.beetrack.www.news.mvp.fragments;
+package com.beetrack.www.news.mvp.views.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +14,9 @@ import com.beetrack.www.news.mvp.views.NewsActivity;
 import com.beetrack.www.news.R;
 import com.beetrack.www.news.adapters.NewsRecyclerAdapter;
 import com.beetrack.www.news.holders.NewsViewHolder;
-import com.beetrack.www.news.models.ArticleDB;
-import com.beetrack.www.news.models.ArticleDBDao;
-import com.beetrack.www.news.models.DaoSession;
+import com.beetrack.www.news.mvp.models.ArticleDB;
+import com.beetrack.www.news.mvp.models.ArticleDBDao;
+import com.beetrack.www.news.mvp.models.DaoSession;
 import com.beetrack.www.news.networking.News;
 import com.beetrack.www.news.networking.models.Article;
 import com.beetrack.www.news.networking.models.Page;

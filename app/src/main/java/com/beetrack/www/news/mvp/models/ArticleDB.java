@@ -1,10 +1,7 @@
-package com.beetrack.www.news.models;
-
-import com.beetrack.www.news.networking.models.Source;
+package com.beetrack.www.news.mvp.models;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.ToOne;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;

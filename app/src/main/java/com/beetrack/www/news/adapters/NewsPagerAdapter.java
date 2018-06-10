@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.beetrack.www.news.mvp.fragments.ListNewsFragment;
+import com.beetrack.www.news.mvp.views.fragments.ListNewsFragment;
 
 public class NewsPagerAdapter extends FragmentPagerAdapter {
 

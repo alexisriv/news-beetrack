@@ -3,8 +3,8 @@ package com.beetrack.www.news.core;
 import android.app.Application;
 
 import com.beetrack.www.news.BuildConfig;
-import com.beetrack.www.news.models.DaoMaster;
-import com.beetrack.www.news.models.DaoSession;
+import com.beetrack.www.news.mvp.models.DaoMaster;
+import com.beetrack.www.news.mvp.models.DaoSession;
 
 import org.greenrobot.greendao.database.Database;
 
