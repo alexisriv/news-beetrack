@@ -7,6 +7,11 @@ public interface Mvp {
     }
 
     interface Presenter<T> {
+
+        /**
+         * Method in charge of initializing the view in the presenter.
+         * @param view
+         */
         void initView(T view);
     }
 }

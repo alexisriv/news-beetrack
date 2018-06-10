@@ -63,10 +63,17 @@ public class NewsPresenter implements MvpNews.Presenter {
         this.saveArticle();
     }
 
+    /**
+     * Method in charge of verifying the existence in the database of an article.
+     * @return TRUE if there is an article, FALSE if it does not exist.
+     */
     public boolean existsArticle(){
         return articleDBDao.queryBuilder().where(ArticleDBDao.Properties.Url.eq(article.getUrl())).build().list().size() > 0 ? true : false;
     }
 
+    /**
+     * Method in charge of saving the article in database.
+     */
     private void saveArticle() {
         SourceDB sourceDB = new SourceDB();
         sourceDB.setIdSource(this.article.getSource().getId());
@@ -102,6 +109,9 @@ public class NewsPresenter implements MvpNews.Presenter {
         }
     }
 
+    /**
+     * Method in charge of eliminating the article in database.
+     */
     private void clearArticle() {
         ArticleDB articleDB = articleDBDao.queryBuilder().where(ArticleDBDao.Properties.Url.eq(article.getUrl())).build().unique();
         try {
